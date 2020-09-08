@@ -1,4 +1,5 @@
 import csv
+from typing import Dict, List
 
 
 # MovieItems:
@@ -21,18 +22,29 @@ class MovieItems(object):
     #
     # 返回:
     #        展示的电影条目
-    def getTagedItems(self, tag: dict):
+    def getTagedItems(self, tag: dict):  # dict: {tagname: tag}
         pass
 
     # getSortedItems:
-    # 根据特定类别进行排序
+    # 根据特定类别进行快速排序
     #
     # 参数:
     #        tag -- 用户选取的分类
     #
     # 返回:
     #        展示的电影条目
-    def getSortedItems(self, sortItem: str):
+    def getSortedItems(self, sortItem: str) -> List[Dict[str, str]]:
+        return items
+
+    # getTypedItems:
+    # 根据用户输入字符串返回展示的电影条目
+    #
+    # 参数:
+    #        input -- 用户输入的字符串
+    #
+    # 返回:
+    #        展示的电影条目
+    def getTypedItems(self, input: str):
         pass
 
     # getAllItems：
