@@ -33,7 +33,7 @@ class MovieItems(object):
     #
     # 返回:
     #        展示的电影条目
-    def getSortedItems(self, sortItem='score'):
+    def getSortedItems(self, sortItem: str):
         rawItems = self.data
         items = []
         for i in range(len(rawItems)):
