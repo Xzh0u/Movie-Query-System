@@ -23,6 +23,18 @@ class MovieItems(object):
     # 返回:
     #        展示的电影条目
     def getTagedItems(self, tag: dict):  # dict: {tagname: tag}
+        rawItems = self.data
+        items = []
+
+        for i in range(len(rawItems)):
+            for key in tag.keys():
+                if key in rawItems[i]:
+                    # 根据 key: tag 筛选
+                    for j in range(len(rawItems[i][key])):
+                        if rawItems[i][key][j] == tag[key]:
+                            items.append(rawItems[i])
+                            break
+
         return items
 
     # getSortedItems:
@@ -76,12 +88,12 @@ class MovieItems(object):
     #
     # 返回:
     #        所有电影条目
+    # TODO: to be modify, remeber to shuffle
     def getAllItems(self):
         with open(self.filename) as f:
             allItems = [{k: v
                          for k, v in row.items()}
                         for row in csv.DictReader(f, skipinitialspace=True)]
-        # TODO: shuffle
         return allItems
 
 
@@ -147,7 +159,7 @@ if __name__ == "__main__":
         'country': '美国',
         'language': '英语',
         'director': '詹姆斯·卡梅隆',
-        'major character': ['蒂姆·罗宾斯 Tim Robbins', 'xxx'],
+        'major character': ['蒂姆·罗宾斯 Tim Robbins'],
         'title': ['泰坦尼克号'],
         'type': ['爱情', '剧情', '灾难'],
         'date': '1998-04-03',
@@ -162,5 +174,5 @@ if __name__ == "__main__":
     }]
     items = MovieItems(items)
     # print(items.getSortedItems('date'))
-    tag = {'type': '爱情'}
+    tag = {'major character': 'xxx'}
     print(items.getTagedItems(tag))
