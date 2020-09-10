@@ -23,7 +23,8 @@ class MovieItems(object):
     # 返回:
     #        展示的电影条目
     def getTagedItems(self, tag: dict):  # dict: {tagname: tag}
-        pass
+
+        return items
 
     # getSortedItems:
     # 根据特定类别进行快速排序
@@ -74,6 +75,18 @@ class MovieItems(object):
                         for row in csv.DictReader(f, skipinitialspace=True)]
         # TODO: shuffle
         return allItems
+
+
+# parseAdaptation:
+# 从introduction中解析是否有“改编”字样
+#
+# 参数:
+#        data -- 输入数据
+#
+# 返回:
+#        dict中增加一项 Adaptation: bool
+def parseAdaptation(self):
+    pass
 
 
 if __name__ == "__main__":
@@ -140,4 +153,6 @@ if __name__ == "__main__":
         }
     }]
     items = MovieItems(items)
-    print(items.getSortedItems('score'))
+    # print(items.getSortedItems('score'))
+    tag = {'type': '爱情'}
+    print(items.getTagedItems(tag))
