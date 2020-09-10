@@ -1,3 +1,4 @@
+import re
 # Python program for implementation of Quicksort Sort
 
 # This function takes last element as pivot, places
@@ -46,6 +47,25 @@ def quickSort(arr, low, high):
         # partition and after partition
         quickSort(arr, low, pi - 1)
         quickSort(arr, pi + 1, high)
+
+
+def dateSort(items):
+    patt = '(\d+)-(\d+)-(\d+)'
+    for i in range(len(items) - 1):
+        for x in range(i + 1, len(items)):
+            j = 1
+            while j < 4:
+                lower = re.match(patt, items[i]).group(j)
+                upper = re.match(patt, items[x]).group(j)
+                #print lower,upper
+                if int(lower) < int(upper):
+                    j = 4
+                elif int(lower) == int(upper):
+                    j += 1
+                else:
+                    items[i], items[x] = items[x], items[i]
+                    j = 4
+    return items
 
 
 # Driver code to test above

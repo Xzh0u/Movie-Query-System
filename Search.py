@@ -1,5 +1,5 @@
 import csv
-from QuickSort import quickSort
+from Sort import quickSort, dateSort
 
 
 # MovieItems:
@@ -23,7 +23,6 @@ class MovieItems(object):
     # 返回:
     #        展示的电影条目
     def getTagedItems(self, tag: dict):  # dict: {tagname: tag}
-
         return items
 
     # getSortedItems:
@@ -42,8 +41,9 @@ class MovieItems(object):
                 selectItem = rawItems[i][sortItem]
                 items.append(selectItem)
 
-        if sortItem == 'date':
-            pass  # 日期排序算法
+        if sortItem == 'date':  # 日期排序算法
+            dateSort(items)
+
         if type(selectItem) == int or float:  # 数字排序算法
             quickSort(items, 0, len(items) - 1)
 
@@ -153,6 +153,6 @@ if __name__ == "__main__":
         }
     }]
     items = MovieItems(items)
-    # print(items.getSortedItems('score'))
+    # print(items.getSortedItems('date'))
     tag = {'type': '爱情'}
     print(items.getTagedItems(tag))
