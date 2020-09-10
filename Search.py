@@ -1,5 +1,5 @@
 import csv
-from Sort import quickSort, dateSort
+from algorithm.Sort import quickSort, dateSort
 
 
 # MovieItems:
@@ -36,6 +36,8 @@ class MovieItems(object):
     def getSortedItems(self, sortItem: str):
         rawItems = self.data
         items = []
+        sortedItems = []
+
         for i in range(len(rawItems)):
             if sortItem in rawItems[i]:
                 selectItem = rawItems[i][sortItem]
@@ -47,7 +49,13 @@ class MovieItems(object):
         if type(selectItem) == int or float:  # 数字排序算法
             quickSort(items, 0, len(items) - 1)
 
-        return items
+        # 输出排序后条目
+        for i in range(len(rawItems)):
+            for j in range(len(rawItems)):
+                if rawItems[j][sortItem] == items[i]:
+                    sortedItems.append(rawItems[j])
+
+        return sortedItems
 
     # getTypedItems:
     # 根据用户输入字符串返回展示的电影条目

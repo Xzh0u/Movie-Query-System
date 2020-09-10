@@ -49,6 +49,7 @@ def quickSort(arr, low, high):
         quickSort(arr, pi + 1, high)
 
 
+# use exchange sort
 def dateSort(items):
     patt = '(\d+)-(\d+)-(\d+)'
     for i in range(len(items) - 1):
