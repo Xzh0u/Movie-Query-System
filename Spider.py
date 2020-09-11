@@ -88,5 +88,5 @@ for i in range(len(allitems)):
 
 import pandas as pd
 df = pd.DataFrame.from_dict(movies)
-df.to_csv('Movies250.csv')
+df.to_csv('data/Movies250.csv')
 print(df)

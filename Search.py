@@ -1,5 +1,5 @@
-import csv
-from algorithm.Sort import quickSort, dateSort
+import csv  # 导入csv文件
+from algorithm.Sort import quickSort, dateSort  # 导入自己实现的算法
 
 
 # MovieItems:
@@ -13,6 +13,7 @@ from algorithm.Sort import quickSort, dateSort
 class MovieItems(object):
     def __init__(self, data):
         self.data = data
+        self.filename = "data/Movies250.csv"
 
     # getTagedItems:
     # 返回所有特定分类的条目
