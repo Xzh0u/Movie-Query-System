@@ -78,7 +78,15 @@ class MovieItems(object):
     # 返回:
     #        展示的电影条目
     def getTypedItems(self, input: str):
-        pass
+        rawItems = self.data
+        guess = []
+
+        for i in range(len(rawItems)):
+            for j in range(len(rawItems[i]["title"])):
+                if input in rawItems[i]["title"][j]:
+                    guess.append(rawItems[i]["title"][j])
+
+        return guess
 
     # getAllItems：
     # 从文件中返回所有电影条目
@@ -189,8 +197,10 @@ if __name__ == "__main__":
             'https://v.qq.com/x/cover/1o29ui77e85grdr.html?ptag=douban.movie'
         }
     }]
-    # items = MovieItems(items)
+    items = MovieItems(items)
+    print(items.getTypedItems('泰'))
     # print(items.getSortedItems('date'))
     # tag = {'major character': 'xxx'}
     # print(items.getTagedItems(tag))
-    print(parseAdaptation(items))
+
+    # print(parseAdaptation(items))
