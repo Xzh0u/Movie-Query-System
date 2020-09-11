@@ -105,8 +105,25 @@ class MovieItems(object):
 #
 # 返回:
 #        dict中增加一项 Adaptation: bool
-def parseAdaptation(self):
-    pass
+def parseAdaptation(data):
+    parseItem = "introduction"
+    content = []
+    adaptation = []
+    for i in range(len(data)):
+        if parseItem in data[i]:
+            content.append(str(data[i][parseItem].split()))
+
+    for i in range(len(content)):
+        if "改编" in content[i]:
+            adaptation.append(True)
+        else:
+            adaptation.append(False)
+
+    # add a adaptation item
+    for i in range(len(data)):
+        data[i]["adaptation"] = adaptation[i]
+
+    return data
 
 
 if __name__ == "__main__":
@@ -172,7 +189,8 @@ if __name__ == "__main__":
             'https://v.qq.com/x/cover/1o29ui77e85grdr.html?ptag=douban.movie'
         }
     }]
-    items = MovieItems(items)
+    # items = MovieItems(items)
     # print(items.getSortedItems('date'))
-    tag = {'major character': 'xxx'}
-    print(items.getTagedItems(tag))
+    # tag = {'major character': 'xxx'}
+    # print(items.getTagedItems(tag))
+    print(parseAdaptation(items))
