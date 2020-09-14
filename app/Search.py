@@ -199,8 +199,8 @@ if __name__ == "__main__":
         }
     }]
     items = MovieItems(items)
-    print(items.getTypedItems('泰'))
-    # print(items.getSortedItems('date'))
+    # print(items.getTypedItems('泰'))
+    print(items.getSortedItems('date'))
     # tag = {'major character': 'xxx'}
     # print(items.getTagedItems(tag))
 
