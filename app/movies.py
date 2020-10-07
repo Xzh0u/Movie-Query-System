@@ -3,7 +3,7 @@ from flask import jsonify
 from flask_cors import CORS
 from flask import Response
 from .search import MovieItems
-import ast
+import ast  # 用于string转dict
 
 server = Blueprint('movies', __name__, url_prefix='/get_movies')
 CORS(server)
@@ -17,13 +17,14 @@ def freeze(d):
     return d
 
 
+# 真正的items从文件读取，并且需要parseAdaptation
 items = [{
     'rank': 2,
     'score': 9.6,
     'country': '中国大陆',
     'language': '汉语普通话',
     'director': '罗伯特·泽米吉斯',
-    'major character': ['汤姆·汉克斯 Tom Hanks', 'xxx'],
+    'majors': ['汤姆·汉克斯 Tom Hanks', 'xxx'],
     'title': ['霸王别姬', '再见，我的妾'],
     'type': ['爱情', '剧情'],
     'date': '1993-01-01',
@@ -46,7 +47,7 @@ items = [{
     '英语',
     'director':
     '弗兰克·德拉邦特',
-    'major character': ['蒂姆·罗宾斯 Tim Robbins', 'xxx'],
+    'majors': ['蒂姆·罗宾斯 Tim Robbins', 'xxx'],
     'title': ['肖申克的救赎', 'The Shawshank Redemption', '月黑高飞(港)', '刺激1995(台)'],
     'type': ['犯罪', '剧情'],
     'date':
@@ -65,7 +66,7 @@ items = [{
     'country': '美国',
     'language': '英语',
     'director': '詹姆斯·卡梅隆',
-    'major character': ['蒂姆·罗宾斯 Tim Robbins'],
+    'majors': ['蒂姆·罗宾斯 Tim Robbins'],
     'title': ['泰坦尼克号'],
     'type': ['爱情', '剧情', '灾难'],
     'date': '1998-04-03',
