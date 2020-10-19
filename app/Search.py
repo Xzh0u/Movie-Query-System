@@ -2,7 +2,7 @@ import csv  # 导入csv文件
 from .algorithm.Sort import quickSort, dateSort  # 导入自己实现的算法
 
 
-# MovieItems:
+# MovieFactory:
 # 根据输入条件进行计算，返回所需展示的电影条目
 #
 # 参数:
@@ -10,10 +10,10 @@ from .algorithm.Sort import quickSort, dateSort  # 导入自己实现的算法
 #
 # 返回:
 #        展示的电影条目
-class MovieItems(object):
+class MovieFactory(object):
     def __init__(self, data):
         self.data = data
-        self.filename = "data/Movies250.csv"
+        # self.filename = "data/Movies250.csv"
 
     # getTagedItems:
     # 返回所有特定分类的条目
@@ -31,8 +31,13 @@ class MovieItems(object):
             for key in tag.keys():
                 if key in rawItems[i]:
                     # 根据 key: tag 筛选
-                    for j in range(len(rawItems[i][key])):
-                        if rawItems[i][key][j] == tag[key]:
+                    if type(rawItems[i][key]) == list:
+                        for j in range(len(rawItems[i][key])):
+                            if rawItems[i][key][j] == tag[key]:
+                                items.append(rawItems[i])
+                                break
+                    elif type(rawItems[i][key]) == str:
+                        if rawItems[i][key] == tag[key]:
                             items.append(rawItems[i])
                             break
 
@@ -198,7 +203,7 @@ if __name__ == "__main__":
             'https://v.qq.com/x/cover/1o29ui77e85grdr.html?ptag=douban.movie'
         }
     }]
-    items = MovieItems(items)
+    items = MovieFactory(items)
     # print(items.getTypedItems('泰'))
     print(items.getSortedItems('date'))
     # tag = {'major character': 'xxx'}

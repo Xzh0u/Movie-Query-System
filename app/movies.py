@@ -2,7 +2,7 @@ from flask import (Blueprint, request, session)
 from flask import jsonify
 from flask_cors import CORS
 from flask import Response
-from .search import MovieItems
+from .search import MovieFactory
 import ast  # 用于string转dict
 
 server = Blueprint('movies', __name__, url_prefix='/get_movies')
@@ -85,7 +85,7 @@ items = [{
 def getSortedMovies():
     if request.method == 'GET':
         sortItem = request.args['sort_item']
-        item = MovieItems(items)
+        item = MovieFactory(items)
         movies = jsonify(item.getSortedItems(sortItem))
         return movies
 
@@ -94,7 +94,7 @@ def getSortedMovies():
 def getTagedMovies():
     if request.method == 'GET':
         tag = ast.literal_eval(request.args['tag'])
-        item = MovieItems(items)
+        item = MovieFactory(items)
         movies = jsonify(item.getTagedItems(tag))
         return movies
 
@@ -103,7 +103,7 @@ def getTagedMovies():
 def getTypedMovies():
     if request.method == 'GET':
         word = request.args['word']
-        item = MovieItems(items)
+        item = MovieFactory(items)
         movies = jsonify(item.getTypedItems(word))
         return movies
 
