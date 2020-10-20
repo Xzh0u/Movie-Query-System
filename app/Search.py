@@ -1,19 +1,17 @@
-import csv  # 导入csv文件
 from .algorithm.Sort import quickSort, dateSort  # 导入自己实现的算法
 
 
-# MovieFactory:
-# 根据输入条件进行计算，返回所需展示的电影条目
+# MovieProvider:
+# 根据输入条件对数据进行计算，返回所需展示的电影条目
 #
 # 参数:
 #        filename -- 获取数据的文件路径
 #
 # 返回:
 #        展示的电影条目
-class MovieFactory(object):
+class MovieProvider(object):
     def __init__(self, data):
         self.data = data
-        # self.filename = "data/Movies250.csv"
 
     # getTagedItems:
     # 返回所有特定分类的条目
@@ -104,11 +102,7 @@ class MovieFactory(object):
     #        所有电影条目
     # TODO: to be modify, remeber to shuffle
     def getAllItems(self):
-        with open(self.filename) as f:
-            allItems = [{k: v
-                         for k, v in row.items()}
-                        for row in csv.DictReader(f, skipinitialspace=True)]
-        return allItems
+        pass
 
 
 # parseAdaptation:
@@ -147,7 +141,7 @@ if __name__ == "__main__":
         'country': '中国大陆',
         'language': '汉语普通话',
         'director': '罗伯特·泽米吉斯',
-        'major character': ['汤姆·汉克斯 Tom Hanks', 'xxx'],
+        'majors': ['汤姆·汉克斯 Tom Hanks', 'xxx'],
         'title': ['霸王别姬', '再见，我的妾'],
         'type': ['爱情', '剧情'],
         'date': '1993-01-01',
@@ -170,7 +164,7 @@ if __name__ == "__main__":
         '英语',
         'director':
         '弗兰克·德拉邦特',
-        'major character': ['蒂姆·罗宾斯 Tim Robbins', 'xxx'],
+        'majors': ['蒂姆·罗宾斯 Tim Robbins', 'xxx'],
         'title':
         ['肖申克的救赎', 'The Shawshank Redemption', '月黑高飞(港)', '刺激1995(台)'],
         'type': ['犯罪', '剧情'],
@@ -190,7 +184,7 @@ if __name__ == "__main__":
         'country': '美国',
         'language': '英语',
         'director': '詹姆斯·卡梅隆',
-        'major character': ['蒂姆·罗宾斯 Tim Robbins'],
+        'majors': ['蒂姆·罗宾斯 Tim Robbins'],
         'title': ['泰坦尼克号'],
         'type': ['爱情', '剧情', '灾难'],
         'date': '1998-04-03',
@@ -203,7 +197,21 @@ if __name__ == "__main__":
             'https://v.qq.com/x/cover/1o29ui77e85grdr.html?ptag=douban.movie'
         }
     }]
-    items = MovieFactory(items)
+    # with open('app/data/list.csv', 'r') as read_obj:
+    #     reader = DictReader(read_obj)
+    #     data = list(reader)
+    #     for i in range(len(data)):
+    #         data[i]["directed_by"] = data[i]["directed_by"].strip('[').strip(
+    #             ']').strip('\'').strip('\'')
+    #         data[i]["rating_num"] = float(data[i]["rating_num"])
+    #         data[i]["rank"] = int(data[i]["rank"])
+    #         data[i]["runtime"] = data[i]["runtime"].strip('[').strip(
+    #             ']').strip('\'').strip('\'')
+    #         data[i]["image_urls"] = data[i]["image_urls"].strip('[').strip(
+    #             ']').strip('\'').strip('\'')
+    #     print(data[0])
+
+    items = MovieProvider(items)
     # print(items.getTypedItems('泰'))
     print(items.getSortedItems('date'))
     # tag = {'major character': 'xxx'}
