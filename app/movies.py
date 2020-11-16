@@ -72,4 +72,4 @@ def getAllMovies():
 
 @server.route('/images', methods=('GET', 'POST'))
 def getMovieImages():
-    return jsonify(get_frames())
+    return jsonify(image=get_frames())

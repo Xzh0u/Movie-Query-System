@@ -3,13 +3,10 @@ from flask import request
 from flask_cors import CORS
 import base64
 from flask import render_template
-import json
 import os
-import sys
 
 
 def get_frames(img_dir="app/data/imgs"):
-    print('get it !!!')
 
     img_streams, img_local_path = return_img_stream(img_dir)
     dic = {'imgs': img_streams, 'pic_name': img_local_path}
@@ -19,7 +16,6 @@ def get_frames(img_dir="app/data/imgs"):
 def return_img_stream(img_local_paths):
     img_streams = []
     paths = [img for img in os.listdir(img_local_paths) if '.jpg' in img]
-    print(paths)
     for img_local_path in paths:
         if '.jpg' in img_local_path:
             path = os.path.join(img_local_paths, img_local_path)
