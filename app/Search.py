@@ -197,19 +197,6 @@ if __name__ == "__main__":
             'https://v.qq.com/x/cover/1o29ui77e85grdr.html?ptag=douban.movie'
         }
     }]
-    # with open('app/data/list.csv', 'r') as read_obj:
-    #     reader = DictReader(read_obj)
-    #     data = list(reader)
-    #     for i in range(len(data)):
-    #         data[i]["directed_by"] = data[i]["directed_by"].strip('[').strip(
-    #             ']').strip('\'').strip('\'')
-    #         data[i]["rating_num"] = float(data[i]["rating_num"])
-    #         data[i]["rank"] = int(data[i]["rank"])
-    #         data[i]["runtime"] = data[i]["runtime"].strip('[').strip(
-    #             ']').strip('\'').strip('\'')
-    #         data[i]["image_urls"] = data[i]["image_urls"].strip('[').strip(
-    #             ']').strip('\'').strip('\'')
-    #     print(data[0])
 
     items = MovieProvider(items)
     # print(items.getTypedItems('泰'))
