@@ -6,6 +6,7 @@ from .search import MovieProvider
 from .get_frame import get_frames, get_img_stream
 from .utils.utils import readMoviesCSV
 from pandas import read_csv
+from datetime import datetime
 
 server = Blueprint('movies', __name__, url_prefix='/movies')
 CORS(server)
@@ -119,16 +120,20 @@ def addClickCount(rank):
 @server.route('/comment/<int:rank>/<string:username>/<string:content>',
               methods=('GET', 'POST'))
 def addComment(rank, username, content):
-    df = read_csv('app/data/comments.csv')
-    df.loc[df['rank'] == rank, ('view')] += 1
-    df.to_csv('app/data/list.csv', index=False)
-    return 'Successfully add 1'
+    df = read_csv(f'app/data/comments/{rank}.csv')
+    comment = {
+        'time': datetime.now(),
+        'username': username,
+        'content': content
+    }
+    df = df.append(comment, ignore_index=True)
+    df.to_csv(f'app/data/comments/{rank}.csv', index=False)
+    return 'Successfully add comment'
 
 
-# return all comments of a movie
-@server.route('/comment/<int:rank>', methods=('GET', 'POST'))
+# return all comments of one movie
+@server.route('/comments/<int:rank>', methods=('GET', 'POST'))
 def loadComment(rank):
-    df = read_csv('app/data/comments.csv')
-    df.loc[df['rank'] == rank, ('view')] += 1
-    df.to_csv('app/data/list.csv', index=False)
-    return 'Successfully add 1'
+    df = read_csv(f'app/data/comments/{rank}.csv')
+    comments = df.values.tolist()
+    return jsonify(comments)
