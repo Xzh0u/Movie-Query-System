@@ -5,6 +5,7 @@ from flask import Response
 from .search import MovieProvider
 from .get_frame import get_frames, get_img_stream
 from .utils.utils import readMoviesCSV
+from pandas import read_csv
 
 server = Blueprint('movies', __name__, url_prefix='/movies')
 CORS(server)
@@ -27,11 +28,9 @@ def getMovies():
     for element in tagType:
         items = getTagMovies(items, element)
 
-    # view sort not support now since no view count data
-    if request.args.get('sort') != None and request.args.get('sort') != 'view':
+    if request.args.get('sort') != None:
         items = getSortMovies(items)
 
-    # score needs to be float
     items = getSpecificScoreMovies(items)
 
     # 分页
@@ -90,7 +89,6 @@ def getSpecificScoreMovies(items):
 @server.route('/type/<string:typeName>')
 def getMovieTypes(typeName):
     items = readMoviesCSV()
-    provider = MovieProvider(items)
 
     typeNames = []
     for item in items:
@@ -108,3 +106,11 @@ def getMovieTypes(typeName):
 @server.route('/images/<string:picName>', methods=('GET', 'POST'))
 def getMovieImages(picName):
     return jsonify(image=get_img_stream(picName))
+
+
+@server.route('/click/<int:rank>', methods=('GET', 'POST'))
+def addClickCount(rank):
+    df = read_csv('app/data/list.csv')
+    df.loc[df['rank'] == rank, ('view')] += 1
+    df.to_csv('app/data/list.csv', index=False)
+    return 'Successfully add 1'
