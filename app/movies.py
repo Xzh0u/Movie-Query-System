@@ -106,5 +106,5 @@ def getMovieTypes(typeName):
 
 
 @server.route('/images/<string:picName>', methods=('GET', 'POST'))
-def getMovieImages():
-    return jsonify(image=get_frames())
+def getMovieImages(picName):
+    return jsonify(image=get_img_stream(picName))
