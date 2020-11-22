@@ -122,7 +122,7 @@ def addClickCount(rank):
 def addComment(rank, username, content):
     df = read_csv(f'app/data/comments/{rank}.csv')
     comment = {
-        'time': datetime.now(),
+        'time': datetime.now().strftime('%Y-%m-%d'),
         'username': username,
         'content': content
     }

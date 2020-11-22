@@ -4,5 +4,5 @@ for i in range(2, 251):
 
 for i in range(2, 251):
     f = open(li[i], "w")
-    f.write(",time,username,content")
+    f.write("time,username,content")
     f.close()
