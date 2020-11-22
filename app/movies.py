@@ -114,3 +114,21 @@ def addClickCount(rank):
     df.loc[df['rank'] == rank, ('view')] += 1
     df.to_csv('app/data/list.csv', index=False)
     return 'Successfully add 1'
+
+
+@server.route('/comment/<int:rank>/<string:username>/<string:content>',
+              methods=('GET', 'POST'))
+def addComment(rank, username, content):
+    df = read_csv('app/data/comments.csv')
+    df.loc[df['rank'] == rank, ('view')] += 1
+    df.to_csv('app/data/list.csv', index=False)
+    return 'Successfully add 1'
+
+
+# return all comments of a movie
+@server.route('/comment/<int:rank>', methods=('GET', 'POST'))
+def loadComment(rank):
+    df = read_csv('app/data/comments.csv')
+    df.loc[df['rank'] == rank, ('view')] += 1
+    df.to_csv('app/data/list.csv', index=False)
+    return 'Successfully add 1'
