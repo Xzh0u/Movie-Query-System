@@ -20,8 +20,9 @@ def create_app(test_config=None):
     #     # load the test config if passed in
     #     app.config.from_mapping(test_config)
 
-    from . import movies
+    from . import movies, get_movies
     app.register_blueprint(movies.server)
+    app.register_blueprint(get_movies.server)
 
     # # a simple page that says hello
     # @app.route('/hello')
