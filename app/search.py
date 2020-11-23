@@ -1,5 +1,4 @@
 from .algorithm.Sort import quickSort, dateSort  # 导入自己实现的算法
-import numpy as np
 
 
 # MovieProvider:

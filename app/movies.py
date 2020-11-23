@@ -121,13 +121,13 @@ def addClickCount(rank):
     return 'Successfully add 1'
 
 
-@server.route('/comment/<int:rank>/<string:username>/<string:content>',
+@server.route('/comments/<int:rank>/<string:author>/<string:content>',
               methods=('GET', 'POST'))
-def addComment(rank, username, content):
+def addComment(rank, author, content):
     df = read_csv(f'app/data/comments/{rank}.csv')
     comment = {
-        'time': datetime.now().timestamp(),
-        'username': username,
+        'createdAt': datetime.now().timestamp(),
+        'author': author,
         'content': content,
         'ip': request.remote_addr
     }
