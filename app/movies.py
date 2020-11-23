@@ -18,7 +18,8 @@ def getMovies():
     provider = MovieProvider(items)
 
     if request.args.get('adaptation') != None:
-        adaptation = 'True' if request.args.get('adaptation') == 1 else 'False'
+        adaptation = 'True' if int(
+            request.args.get('adaptation')) == 1 else 'False'
         items = provider.getTagedItems({'adaptation': adaptation})
 
     if request.args.get('major') != None:
@@ -92,6 +93,8 @@ def getSpecificScoreMovies(items):
 def getMovieTypes(typeName):
     items = readMoviesCSV()
 
+    if typeName == 'major':
+        typeName = 'majors'
     typeNames = []
     for item in items:
         if type(item[typeName]) == list:
