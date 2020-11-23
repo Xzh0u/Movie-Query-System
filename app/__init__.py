@@ -2,7 +2,7 @@ import os
 
 from flask import (Flask, request, session)
 from flask import Flask, flash, request, redirect, url_for
-from flask.helpers import make_response
+from flask.helpers import make_response, send_from_directory
 from werkzeug.utils import secure_filename
 from flask_cors import CORS
 
@@ -19,14 +19,9 @@ def create_app(test_config=None):
     app.register_blueprint(get_movies.server)
 
     # a simple page that says hello
-    # @app.route('/static/<string:pid>')
-    # def getImage(pid):
-    #     image_binary = read_image(pid)
-    #     response = make_response(image_binary)
-    #     response.headers.set('Content-Type', 'image/jpeg')
-    #     response.headers.set('Content-Disposition',
-    #                          'attachment',
-    #                          filename='%s.jpg' % pid)
-    #     return response
+    @app.route('/static/images/<string:pic_name>')
+    def getImage(pic_name):
+        path = "static/"
+        return send_from_directory(path, pic_name)
 
     return app
