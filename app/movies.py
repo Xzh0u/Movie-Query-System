@@ -126,9 +126,10 @@ def addClickCount(rank):
 def addComment(rank, username, content):
     df = read_csv(f'app/data/comments/{rank}.csv')
     comment = {
-        'time': datetime.now().strftime('%Y-%m-%d'),
+        'time': datetime.now().timestamp(),
         'username': username,
-        'content': content
+        'content': content,
+        'ip': request.remote_addr
     }
     df = df.append(comment, ignore_index=True)
     df.to_csv(f'app/data/comments/{rank}.csv', index=False)
@@ -139,5 +140,5 @@ def addComment(rank, username, content):
 @server.route('/comments/<int:rank>', methods=('GET', 'POST'))
 def loadComment(rank):
     df = read_csv(f'app/data/comments/{rank}.csv')
-    comments = df.values.tolist()
+    comments = df.to_dict('records')
     return jsonify(comments)
