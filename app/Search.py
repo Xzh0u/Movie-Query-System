@@ -1,4 +1,5 @@
 from .algorithm.Sort import quickSort, dateSort  # 导入自己实现的算法
+import numpy as np
 
 
 # MovieProvider:
@@ -49,6 +50,7 @@ class MovieProvider(object):
     #
     # 返回:
     #        展示的电影条目
+    # TODO: fix sort
     def getSortedItems(self, sortItem: str):
         rawItems = self.data
         items = []
@@ -66,11 +68,15 @@ class MovieProvider(object):
             quickSort(items, 0, len(items) - 1)
 
         # 输出排序后条目
-        for i in range(len(rawItems)):
-            for j in range(len(rawItems)):
-                if rawItems[j][sortItem] == items[i]:
-                    sortedItems.append(rawItems[j])
+        if sortItem == 'date':
+            for i in range(len(rawItems)):
+                for j in range(len(rawItems)):
+                    if rawItems[j][sortItem] == items[i]:
+                        sortedItems.append(rawItems[j])
+        else:
+            sortedItems = sorted(rawItems, key=lambda i: i[sortItem])
 
+        sortedItems.reverse()
         return sortedItems
 
     # getTypedItems:
@@ -152,7 +158,8 @@ if __name__ == "__main__":
             'https://www.iqiyi.com/v_19rra0h3wg.html?vfm=m_331_dbdy&fv=4904d94982104144a1548dd9040df241',
             '腾讯视频':
             'https://v.qq.com/x/cover/1o29ui77e85grdr.html?ptag=douban.movie'
-        }
+        },
+        'view': 0
     }, {
         'rank':
         1,
@@ -177,7 +184,9 @@ if __name__ == "__main__":
             'https://www.iqiyi.com/v_19rra0h3wg.html?vfm=m_331_dbdy&fv=4904d94982104144a1548dd9040df241',
             '腾讯视频':
             'https://v.qq.com/x/cover/1o29ui77e85grdr.html?ptag=douban.movie'
-        }
+        },
+        'view':
+        0
     }, {
         'rank': 5,
         'score': 9.2,
@@ -195,13 +204,14 @@ if __name__ == "__main__":
             'https://www.iqiyi.com/v_19rra0h3wg.html?vfm=m_331_dbdy&fv=4904d94982104144a1548dd9040df241',
             '腾讯视频':
             'https://v.qq.com/x/cover/1o29ui77e85grdr.html?ptag=douban.movie'
-        }
+        },
+        'view': 0
     }]
 
     items = MovieProvider(items)
     # print(items.getTypedItems('泰'))
-    print(items.getSortedItems('date'))
-    # tag = {'major character': 'xxx'}
+    print(items.getSortedItems('score'))
+    # tag = {'adaptation': "False"}
     # print(items.getTagedItems(tag))
 
     # print(parseAdaptation(items))

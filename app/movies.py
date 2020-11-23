@@ -18,7 +18,7 @@ def getMovies():
     provider = MovieProvider(items)
 
     if request.args.get('adaptation') != None:
-        adaptation = 'True' if request.args.get('adaptation') else 'False'
+        adaptation = 'True' if request.args.get('adaptation') == 1 else 'False'
         items = provider.getTagedItems({'adaptation': adaptation})
 
     if request.args.get('major') != None:
@@ -34,6 +34,7 @@ def getMovies():
 
     items = getSpecificScoreMovies(items)
 
+    count = len(items)
     # 分页
     if request.args.get('limit') != None:
         limit = int(request.args.get('limit'))
@@ -43,7 +44,7 @@ def getMovies():
             offset = 0
         items = items[0 + offset:limit + offset]
 
-    return jsonify(items)
+    return jsonify({'movies': items, 'count': count})
 
 
 def getTagMovies(items, tagName):
