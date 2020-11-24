@@ -16,6 +16,7 @@ CORS(server)
 def getMovies():
     items = readMoviesCSV()
     provider = MovieProvider(items)
+    items = provider.getSortedItems('score')
 
     if request.args.get('adaptation') != None:
         adaptation = 'True' if int(
