@@ -28,4 +28,7 @@ def readMoviesCSV(filename='app/data/list.csv'):
                 items[i]["country"].replace(' ', '\"').replace('/', ',') +
                 "\"]")
             items[i]["view"] = int(items[i]["view"])
+            for idx, item in enumerate(items[i]["introduction"]):
+                items[i]["introduction"][idx] = item.replace(" ",
+                                                             "").strip("\n")
     return items
