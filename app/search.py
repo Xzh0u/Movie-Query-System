@@ -49,7 +49,6 @@ class MovieProvider(object):
     #
     # 返回:
     #        展示的电影条目
-    # TODO: fix sort
     def getSortedItems(self, sortItem: str):
         rawItems = self.data
         items = []
@@ -105,9 +104,8 @@ class MovieProvider(object):
     #
     # 返回:
     #        所有电影条目
-    # TODO: to be modify, remeber to shuffle
     def getAllItems(self):
-        pass
+        return self.data
 
 
 # parseAdaptation:
